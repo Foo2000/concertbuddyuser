@@ -32,9 +32,9 @@ public class UserController {
         userService.addNewUser(user);
     }
 
-    @PutMapping(path="{userId}")
-    public void updateUser(@PathVariable("userId") UUID userId, @RequestBody User user) {
-        userService.updateUser(userId, user);
+    @PutMapping
+    public void updateUser(@RequestBody User user) {
+        userService.addNewUser(user);
     }
 
     @DeleteMapping(path="{userId}")

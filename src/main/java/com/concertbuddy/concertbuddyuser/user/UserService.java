@@ -37,24 +37,6 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void updateUser(UUID userId, User user) {
-        boolean exists = userRepository.existsById(userId);
-        if (!exists) {
-            throw new IllegalStateException(
-                    "User with id " + userId + " does not exist"
-            );
-        }
-        if (userId.equals(user.getId())){
-            userRepository.save(user);
-        } else {
-            throw new IllegalStateException(
-                    "The user id " + userId +
-                            " in the path parameter is different from the user id " +
-                            user.getId() +" in the request body"
-            );
-        }
-    }
-
     public void deleteUser(UUID userId) {
         boolean exists = userRepository.existsById(userId);
         if (!exists) {
