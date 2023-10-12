@@ -1,6 +1,7 @@
 package com.concertbuddy.concertbuddyuser.user;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -13,11 +14,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @NotNull
     private String name;
     private LocalDate dateOfBirth;
     @Transient
     private Integer age;
+    @NotNull
     private String email;
+    @NotNull
     private String password;
     private String profilePictureUrl;
 

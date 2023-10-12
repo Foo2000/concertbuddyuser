@@ -1,9 +1,8 @@
 package com.concertbuddy.concertbuddyuser.song;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.UUID;
 
 @Entity
@@ -13,8 +12,11 @@ public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @NotNull
     private String name;
+    @NotNull
     private String artist;
+    @NotNull
     private String genre;
 
     public Song() {
