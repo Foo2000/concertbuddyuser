@@ -19,7 +19,7 @@ public class User {
     private Integer age;
     private String email;
     private String password;
-    private String profilePictureUrr;
+    private String profilePictureUrl;
 
     public User() {
     }
@@ -27,25 +27,25 @@ public class User {
     public User(UUID id, String name,
                 LocalDate dateOfBirth,
                 String email, String password,
-                String profilePictureUrr) {
+                String profilePictureUrl) {
         this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.email = email;
         this.password = password;
-        this.profilePictureUrr = profilePictureUrr;
+        this.profilePictureUrl = profilePictureUrl;
     }
 
     public User(String name,
                 LocalDate dateOfBirth,
                 String email,
                 String password,
-                String profilePictureUrr) {
+                String profilePictureUrl) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.email = email;
         this.password = password;
-        this.profilePictureUrr = profilePictureUrr;
+        this.profilePictureUrl = profilePictureUrl;
     }
 
     public UUID getId() {
@@ -92,12 +92,12 @@ public class User {
         this.password = password;
     }
 
-    public String getProfilePictureUrr() {
-        return profilePictureUrr;
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
     }
 
-    public void setProfilePictureUrr(String profilePictureUrr) {
-        this.profilePictureUrr = profilePictureUrr;
+    public void setProfilePictureUrl(String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
     }
 
     @Override
@@ -108,7 +108,7 @@ public class User {
                 ", dateOfBirth=" + dateOfBirth +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", profilePictureUrr='" + profilePictureUrr + '\'' +
+                ", profilePictureUrl='" + profilePictureUrl + '\'' +
                 '}';
     }
 }

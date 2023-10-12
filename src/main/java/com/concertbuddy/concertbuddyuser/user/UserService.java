@@ -30,7 +30,7 @@ public class UserService {
     }
 
     public void addNewUser(User user) {
-        Optional<User> optionalUserByEmail =  userRepository.findUserByEmail(user.getEmail());
+        Optional<User> optionalUserByEmail = userRepository.findUserByEmail(user.getEmail());
         if (optionalUserByEmail.isPresent()) {
             throw new IllegalStateException("This email is already taken by an existing user");
         }
@@ -44,8 +44,15 @@ public class UserService {
                     "User with id " + userId + " does not exist"
             );
         }
-        user.setId(userId);
-        userRepository.save(user);
+        if (userId.equals(user.getId())){
+            userRepository.save(user);
+        } else {
+            throw new IllegalStateException(
+                    "The user id " + userId +
+                            " in the path parameter is different from the user id " +
+                            user.getId() +" in the request body"
+            );
+        }
     }
 
     public void deleteUser(UUID userId) {
