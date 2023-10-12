@@ -1,5 +1,6 @@
 package com.concertbuddy.concertbuddyuser.user;
 
+import com.concertbuddy.concertbuddyuser.song.Song;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -25,8 +26,13 @@ public class User {
     @NotNull
     private String password;
     private String profilePictureUrl;
-    @ElementCollection
-    private List<UUID> songIds;
+    @ManyToMany
+    @JoinTable(
+            name = "user_song",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "song_id")
+    )
+    private List<Song> songs;
     @ElementCollection
     private List<UUID> concertIds;
 
@@ -37,7 +43,7 @@ public class User {
                 LocalDate dateOfBirth,
                 String email, String password,
                 String profilePictureUrl,
-                List<UUID> songIds,
+                List<Song> songs,
                 List<UUID> concertIds) {
         this.id = id;
         this.name = name;
@@ -45,7 +51,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.profilePictureUrl = profilePictureUrl;
-        this.songIds = songIds;
+        this.songs = songs;
         this.concertIds = concertIds;
     }
 
@@ -54,14 +60,14 @@ public class User {
                 String email,
                 String password,
                 String profilePictureUrl,
-                List<UUID> songIds,
+                List<Song> songs,
                 List<UUID> concertIds) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.email = email;
         this.password = password;
         this.profilePictureUrl = profilePictureUrl;
-        this.songIds = songIds;
+        this.songs = songs;
         this.concertIds = concertIds;
     }
 
@@ -117,12 +123,12 @@ public class User {
         this.profilePictureUrl = profilePictureUrl;
     }
 
-    public List<UUID> getSongIds() {
-        return songIds;
+    public List<Song> getSongs() {
+        return songs;
     }
 
-    public void setSongIds(List<UUID> songIds) {
-        this.songIds = songIds;
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
     }
 
     public List<UUID> getConcertIds() {
@@ -143,7 +149,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", profilePictureUrl='" + profilePictureUrl + '\'' +
-                ", songIds=" + songIds +
+                ", songs=" + songs +
                 ", concertIds=" + concertIds +
                 '}';
     }

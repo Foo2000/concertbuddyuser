@@ -1,8 +1,10 @@
 package com.concertbuddy.concertbuddyuser.song;
 
+import com.concertbuddy.concertbuddyuser.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -18,21 +20,25 @@ public class Song {
     private String artist;
     @NotNull
     private String genre;
+    @ManyToMany(mappedBy = "songs")
+    private List<User> users;
 
     public Song() {
     }
 
-    public Song(UUID id, String name, String artist, String genre) {
+    public Song(UUID id, String name, String artist, String genre, List<User> users) {
         this.id = id;
         this.name = name;
         this.artist = artist;
         this.genre = genre;
+        this.users = users;
     }
 
-    public Song(String name, String artist, String genre) {
+    public Song(String name, String artist, String genre, List<User> users) {
         this.name = name;
         this.artist = artist;
         this.genre = genre;
+        this.users = users;
     }
 
     public UUID getId() {
@@ -67,6 +73,14 @@ public class Song {
         this.genre = genre;
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
     @Override
     public String toString() {
         return "Song{" +
@@ -74,6 +88,7 @@ public class Song {
                 ", name='" + name + '\'' +
                 ", artist='" + artist + '\'' +
                 ", genre='" + genre + '\'' +
+                ", users=" + users +
                 '}';
     }
 }
