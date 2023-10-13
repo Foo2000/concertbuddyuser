@@ -2,7 +2,6 @@ package com.concertbuddy.concertbuddyuser.song;
 
 import com.concertbuddy.concertbuddyuser.user.User;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,11 +13,11 @@ public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @NotNull
+    @Column(nullable = false)
     private String name;
-    @NotNull
+    @Column(nullable = false)
     private String artist;
-    @NotNull
+    @Column(nullable = false)
     private String genre;
     @ManyToMany(mappedBy = "songs")
     private List<User> users;

@@ -2,7 +2,6 @@ package com.concertbuddy.concertbuddyuser.user;
 
 import com.concertbuddy.concertbuddyuser.song.Song;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -16,16 +15,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @NotNull
+    @Column(nullable = false)
     private String name;
-    @NotNull
+    @Column(nullable = false)
     private LocalDate dateOfBirth;
     @Transient
     private Integer age;
-    @NotNull
+    @Column(nullable = false)
     private String email;
-    @NotNull
+    @Column(nullable = false)
     private String password;
+    @Column()
     private String profilePictureUrl;
     @ManyToMany
     @JoinTable(
