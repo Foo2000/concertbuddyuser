@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.concertbuddy</groupId>
 	<artifactId>concertbuddyuser</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>concertbuddyuser</name>
 	<description>User microservice for the ConcertBuddy project</description>
 	<properties>
