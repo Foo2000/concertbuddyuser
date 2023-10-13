@@ -18,6 +18,7 @@ public class User {
     private UUID id;
     @NotNull
     private String name;
+    @NotNull
     private LocalDate dateOfBirth;
     @Transient
     private Integer age;
