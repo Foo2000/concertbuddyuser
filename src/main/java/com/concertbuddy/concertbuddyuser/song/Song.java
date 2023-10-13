@@ -1,6 +1,7 @@
 package com.concertbuddy.concertbuddyuser.song;
 
 import com.concertbuddy.concertbuddyuser.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class Song {
     @Column(nullable = false)
     private String genre;
     @ManyToMany(mappedBy = "songs")
+    @JsonIgnore
     private List<User> users;
 
     public Song() {
