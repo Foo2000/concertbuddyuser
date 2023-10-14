@@ -51,7 +51,7 @@ public class UserController {
     }
 
     @GetMapping(path="{userId}/songs")
-    public ResponseEntity<CollectionModel<EntityModel<Song>>> getUserSongsById(@PathVariable("userId") UUID userId) {
+    public ResponseEntity<CollectionModel<EntityModel<Song>>> getUserSongs(@PathVariable("userId") UUID userId) {
         User user = userService.getUserById(userId);
         List<EntityModel<Song>> songsWithLinks = user.getSongs().stream().map(
                 song -> EntityModel.of(
@@ -70,6 +70,22 @@ public class UserController {
     @DeleteMapping(path="{userId}/songs/{songId}")
     public void deleteUserSong(@PathVariable("userId") UUID userId, @PathVariable("songId") UUID songId) {
         userService.deleteUserSong(userId, songId);
+    }
+
+    @GetMapping(path="{userId}/concerts")
+    public List<UUID> getUserConcerts(@PathVariable("userId") UUID userId) {
+        User user = userService.getUserById(userId);
+        return user.getConcertIds();
+    }
+
+    @PutMapping(path="{userId}/concerts/{concertId}")
+    public void updateUserConcert(@PathVariable("userId") UUID userId, @PathVariable("concertId") UUID concertId) {
+        userService.addNewUserConcert(userId, concertId);
+    }
+
+    @DeleteMapping(path="{userId}/concerts/{concertId}")
+    public void deleteUserConcert(@PathVariable("userId") UUID userId, @PathVariable("concertId") UUID concertId) {
+        userService.deleteUserConcert(userId, concertId);
     }
 
 }

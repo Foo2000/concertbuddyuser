@@ -37,6 +37,7 @@ public class User {
     @JsonIgnore
     private List<Song> songs;
     @ElementCollection
+    @JsonIgnore
     private List<UUID> concertIds;
 
     public User() {

@@ -89,11 +89,39 @@ public class UserService {
             );
         }
         Song songById = optionalSongById.get();
-        // add songById to songs of userById
+        // delete songById from songs of userById
         List<Song> newUserByIdSongs = userById.getSongs();
         newUserByIdSongs.remove(songById);
         userById.setSongs(newUserByIdSongs);
         // save the updated userById to database
+        userRepository.save(userById);
+    }
+
+    public void addNewUserConcert(UUID userId, UUID concertId) {
+        Optional<User> optionalUserById = userRepository.findById(userId);
+        if (optionalUserById.isEmpty()) {
+            throw new IllegalStateException(
+                    "User with id " + userId + " does not exist"
+            );
+        }
+        User userById = optionalUserById.get();
+        List<UUID> newUserByIdConcerts = userById.getConcertIds();
+        newUserByIdConcerts.add(concertId);
+        userById.setConcertIds(newUserByIdConcerts);
+        userRepository.save(userById);
+    }
+
+    public void deleteUserConcert(UUID userId, UUID concertId) {
+        Optional<User> optionalUserById = userRepository.findById(userId);
+        if (optionalUserById.isEmpty()) {
+            throw new IllegalStateException(
+                    "User with id " + userId + " does not exist"
+            );
+        }
+        User userById = optionalUserById.get();
+        List<UUID> newUserByIdConcerts = userById.getConcertIds();
+        newUserByIdConcerts.remove(concertId);
+        userById.setConcertIds(newUserByIdConcerts);
         userRepository.save(userById);
     }
 }
