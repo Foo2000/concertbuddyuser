@@ -1,4 +1,6 @@
 package com.concertbuddy.concertbuddyuser.user;
+import com.concertbuddy.concertbuddyuser.song.Song;
+import com.concertbuddy.concertbuddyuser.song.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -9,10 +11,12 @@ import java.util.UUID;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final SongRepository songRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, SongRepository songRepository) {
         this.userRepository = userRepository;
+        this.songRepository = songRepository;
     }
 
     public List<User> getUsers() {
@@ -47,4 +51,49 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
+    public void addNewUserSong(UUID userId, UUID songId) {
+        Optional<User> optionalUserById = userRepository.findById(userId);
+        if (optionalUserById.isEmpty()) {
+            throw new IllegalStateException(
+                    "User with id " + userId + " does not exist"
+            );
+        }
+        User userById = optionalUserById.get();
+        Optional<Song> optionalSongById = songRepository.findById(songId);
+        if (optionalSongById.isEmpty()) {
+            throw new IllegalStateException(
+                    "Song with id " + songId + " does not exist"
+            );
+        }
+        Song songById = optionalSongById.get();
+        // add songById to songs of userById
+        List<Song> newUserByIdSongs = userById.getSongs();
+        newUserByIdSongs.add(songById);
+        userById.setSongs(newUserByIdSongs);
+        // save the updated userById to database
+        userRepository.save(userById);
+    }
+
+    public void deleteUserSong(UUID userId, UUID songId) {
+        Optional<User> optionalUserById = userRepository.findById(userId);
+        if (optionalUserById.isEmpty()) {
+            throw new IllegalStateException(
+                    "User with id " + userId + " does not exist"
+            );
+        }
+        User userById = optionalUserById.get();
+        Optional<Song> optionalSongById = songRepository.findById(songId);
+        if (optionalSongById.isEmpty()) {
+            throw new IllegalStateException(
+                    "Song with id " + songId + " does not exist"
+            );
+        }
+        Song songById = optionalSongById.get();
+        // add songById to songs of userById
+        List<Song> newUserByIdSongs = userById.getSongs();
+        newUserByIdSongs.remove(songById);
+        userById.setSongs(newUserByIdSongs);
+        // save the updated userById to database
+        userRepository.save(userById);
+    }
 }

@@ -61,4 +61,15 @@ public class UserController {
         ).toList();
         return ResponseEntity.ok(CollectionModel.of(songsWithLinks));
     }
+
+    @PutMapping(path="{userId}/songs/{songId}")
+    public void updateUserSong(@PathVariable("userId") UUID userId, @PathVariable("songId") UUID songId) {
+        userService.addNewUserSong(userId, songId);
+    }
+
+    @DeleteMapping(path="{userId}/songs/{songId}")
+    public void deleteUserSong(@PathVariable("userId") UUID userId, @PathVariable("songId") UUID songId) {
+        userService.deleteUserSong(userId, songId);
+    }
+
 }
