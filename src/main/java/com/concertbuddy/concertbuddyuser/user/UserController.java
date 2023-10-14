@@ -1,5 +1,6 @@
 package com.concertbuddy.concertbuddyuser.user;
 
+import com.concertbuddy.concertbuddyuser.song.Song;
 import com.concertbuddy.concertbuddyuser.song.SongController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -25,31 +26,13 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<CollectionModel<EntityModel<User>>> getUsers() {
-        List<EntityModel<User>> usersWithLinks = userService.getUsers().stream().map(
-                user -> EntityModel.of(
-                        user,
-                        // list of song links
-                        user.getSongs().stream().map(
-                                // map song to link
-                                song -> linkTo(methodOn(SongController.class).getSongById(song.getId())).withRel("song: "+song.getName())
-                        ).toList())
-        ).toList();
-
-        return ResponseEntity.ok(CollectionModel.of(usersWithLinks));
+    public List<User> getUsers() {
+        return userService.getUsers();
     }
 
     @GetMapping(path="{userId}")
-    public ResponseEntity<EntityModel<User>> getUserById(@PathVariable("userId") UUID userId) {
-        User user = userService.getUserById(userId);
-        EntityModel<User> userWithLinks = EntityModel.of(
-                user,
-                // list of song links
-                user.getSongs().stream().map(
-                        // map song to link
-                        song -> linkTo(methodOn(SongController.class).getSongById(song.getId())).withRel("song: "+song.getName())
-                ).toList());
-        return ResponseEntity.ok(userWithLinks);
+    public User getUserById(@PathVariable("userId") UUID userId) {
+        return userService.getUserById(userId);
     }
 
     @PostMapping
@@ -65,5 +48,17 @@ public class UserController {
     @DeleteMapping(path="{userId}")
     public void deleteUser(@PathVariable("userId") UUID userId) {
         userService.deleteUser(userId);
+    }
+
+    @GetMapping(path="{userId}/songs")
+    public ResponseEntity<CollectionModel<EntityModel<Song>>> getUserSongsById(@PathVariable("userId") UUID userId) {
+        User user = userService.getUserById(userId);
+        List<EntityModel<Song>> songsWithLinks = user.getSongs().stream().map(
+                song -> EntityModel.of(
+                        song,
+                        linkTo(methodOn(SongController.class).getSongById(song.getId())).withSelfRel()
+                )
+        ).toList();
+        return ResponseEntity.ok(CollectionModel.of(songsWithLinks));
     }
 }

@@ -1,6 +1,7 @@
 package com.concertbuddy.concertbuddyuser.user;
 
 import com.concertbuddy.concertbuddyuser.song.Song;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -33,6 +34,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "song_id")
     )
+    @JsonIgnore
     private List<Song> songs;
     @ElementCollection
     private List<UUID> concertIds;
