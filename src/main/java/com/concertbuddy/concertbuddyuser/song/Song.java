@@ -1,7 +1,5 @@
 package com.concertbuddy.concertbuddyuser.song;
 
-import com.concertbuddy.concertbuddyuser.user.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -18,28 +16,23 @@ public class Song {
     private String name;
     @Column(nullable = false)
     private String artist;
-    @Column(nullable = false)
-    private String genre;
-    @ManyToMany(mappedBy = "songs")
-    @JsonIgnore
-    private List<User> users;
+    @ElementCollection
+    private List<String> genre;
 
     public Song() {
     }
 
-    public Song(UUID id, String name, String artist, String genre, List<User> users) {
+    public Song(UUID id, String name, String artist, List<String> genre) {
         this.id = id;
         this.name = name;
         this.artist = artist;
         this.genre = genre;
-        this.users = users;
     }
 
-    public Song(String name, String artist, String genre, List<User> users) {
+    public Song(String name, String artist, List<String> genre) {
         this.name = name;
         this.artist = artist;
         this.genre = genre;
-        this.users = users;
     }
 
     public UUID getId() {
@@ -66,20 +59,12 @@ public class Song {
         this.artist = artist;
     }
 
-    public String getGenre() {
+    public List<String> getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(List<String> genre) {
         this.genre = genre;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 
     @Override
@@ -88,8 +73,7 @@ public class Song {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", artist='" + artist + '\'' +
-                ", genre='" + genre + '\'' +
-                ", users=" + users +
+                ", genre=" + genre +
                 '}';
     }
 }
