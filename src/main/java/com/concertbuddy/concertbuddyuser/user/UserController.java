@@ -88,4 +88,9 @@ public class UserController {
         userService.deleteUserConcert(userId, concertId);
     }
 
+    @PutMapping(path="SpotifySync")
+    public void SpotifySync() {
+        userService.SpotifySync();
+    }
+
 }

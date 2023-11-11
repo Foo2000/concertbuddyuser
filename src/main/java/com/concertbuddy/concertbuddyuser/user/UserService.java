@@ -124,4 +124,8 @@ public class UserService {
         userById.setConcertIds(newUserByIdConcerts);
         userRepository.save(userById);
     }
+
+    public void SpotifySync() {
+        // Spotify API call goes here
+    }
 }
