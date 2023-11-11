@@ -72,22 +72,6 @@ public class UserController {
         userService.deleteUserSong(userId, songId);
     }
 
-    @GetMapping(path="{userId}/concerts")
-    public List<UUID> getUserConcerts(@PathVariable("userId") UUID userId) {
-        User user = userService.getUserById(userId);
-        return user.getConcertIds();
-    }
-
-    @PutMapping(path="{userId}/concerts/{concertId}")
-    public void updateUserConcert(@PathVariable("userId") UUID userId, @PathVariable("concertId") UUID concertId) {
-        userService.addNewUserConcert(userId, concertId);
-    }
-
-    @DeleteMapping(path="{userId}/concerts/{concertId}")
-    public void deleteUserConcert(@PathVariable("userId") UUID userId, @PathVariable("concertId") UUID concertId) {
-        userService.deleteUserConcert(userId, concertId);
-    }
-
     @PutMapping(path="SpotifySync")
     public void SpotifySync() {
         userService.SpotifySync();

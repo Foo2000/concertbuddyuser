@@ -36,9 +36,6 @@ public class User {
     )
     @JsonIgnore
     private List<Song> songs;
-    @ElementCollection
-    @JsonIgnore
-    private List<UUID> concertIds;
 
     public User() {
     }
@@ -47,8 +44,7 @@ public class User {
                 LocalDate dateOfBirth,
                 String email, String password,
                 String profilePictureUrl,
-                List<Song> songs,
-                List<UUID> concertIds) {
+                List<Song> songs) {
         this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -56,7 +52,6 @@ public class User {
         this.password = password;
         this.profilePictureUrl = profilePictureUrl;
         this.songs = songs;
-        this.concertIds = concertIds;
     }
 
     public User(String name,
@@ -64,15 +59,13 @@ public class User {
                 String email,
                 String password,
                 String profilePictureUrl,
-                List<Song> songs,
-                List<UUID> concertIds) {
+                List<Song> songs) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.email = email;
         this.password = password;
         this.profilePictureUrl = profilePictureUrl;
         this.songs = songs;
-        this.concertIds = concertIds;
     }
 
     public UUID getId() {
@@ -135,14 +128,6 @@ public class User {
         this.songs = songs;
     }
 
-    public List<UUID> getConcertIds() {
-        return concertIds;
-    }
-
-    public void setConcertIds(List<UUID> concertIds) {
-        this.concertIds = concertIds;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -154,7 +139,6 @@ public class User {
                 ", password='" + password + '\'' +
                 ", profilePictureUrl='" + profilePictureUrl + '\'' +
                 ", songs=" + songs +
-                ", concertIds=" + concertIds +
                 '}';
     }
 }
