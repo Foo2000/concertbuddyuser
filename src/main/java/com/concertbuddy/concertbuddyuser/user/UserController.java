@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -26,8 +27,11 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getUsers() {
-        return userService.getUsers();
+    public List<User> getUsers(@RequestParam("nameFilter") Optional<String> nameFilter) {
+        if (nameFilter.isEmpty()) {
+            return userService.getUsers();
+        }
+        return userService.getFilteredUsers(nameFilter.get());
     }
 
     @GetMapping(path="{userId}")

@@ -23,6 +23,10 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<User> getFilteredUsers(String nameFilter) {
+        return userRepository.findByName(nameFilter);
+    }
+
     public User getUserById(UUID userId) {
         Optional<User> optionalUserById = userRepository.findById(userId);
         if (optionalUserById.isEmpty()) {
