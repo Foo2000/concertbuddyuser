@@ -28,13 +28,13 @@ public class SongController {
     }
 
     @PostMapping
-    public void registerNewSong(@RequestBody Song song) {
-        songService.addNewSong(song);
+    public UUID registerNewSong(@RequestBody Song song) {
+        return songService.addNewSong(song);
     }
 
     @PutMapping
-    public void updateSong(@RequestBody Song song) {
-        songService.addNewSong(song);
+    public UUID updateSong(@RequestBody Song song) {
+        return songService.addNewSong(song);
     }
 
     @DeleteMapping(path="{songId}")

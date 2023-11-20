@@ -29,12 +29,14 @@ public class SongService {
         return optionalSongById.get();
     }
 
-    public void addNewSong(Song song) {
+    public UUID addNewSong(Song song) {
         List<Song> songsByName = songRepository.findAllByName(song.getName());
-        if (songsByName.stream().anyMatch(e -> e.getArtist().equals(song.getArtist()))) {
-            throw new IllegalStateException("This song already exists");
+        for (Song e : songsByName) {
+            if (e.getArtist().equals(song.getArtist())) {
+                return e.getId();
+            }
         }
-        songRepository.save(song);
+        return songRepository.save(song).getId();
     }
 
     public void deleteSong(UUID songId) {
