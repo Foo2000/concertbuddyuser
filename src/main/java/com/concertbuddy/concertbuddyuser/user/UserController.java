@@ -76,9 +76,8 @@ public class UserController {
         userService.deleteUserSong(userId, songId);
     }
 
-    @PutMapping(path="SpotifySync")
-    public void SpotifySync() {
-        userService.SpotifySync();
+    @PutMapping(path="{userId}/SpotifySync")
+    public void SpotifySync(@PathVariable("userId") UUID userId) {
+        userService.SpotifySync(userId);
     }
-
 }
