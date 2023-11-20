@@ -84,7 +84,9 @@ public class UserService {
         Song songById = optionalSongById.get();
         // add songById to songs of userById
         List<Song> newUserByIdSongs = userById.getSongs();
-        newUserByIdSongs.add(songById);
+        if (!(newUserByIdSongs.contains(songById))){
+            newUserByIdSongs.add(songById);
+        }
         userById.setSongs(newUserByIdSongs);
         // save the updated userById to database
         userRepository.save(userById);
