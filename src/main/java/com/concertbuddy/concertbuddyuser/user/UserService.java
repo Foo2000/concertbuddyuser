@@ -115,7 +115,7 @@ public class UserService {
         userRepository.save(userById);
     }
 
-    public void SpotifySync(UUID userId) {
+    public void SpotifySync(UUID userId, String SpotifyAccountToken) {
         // Spotify API call goes here
         Optional<User> optionalUserById = userRepository.findById(userId);
         if (optionalUserById.isEmpty()) {
