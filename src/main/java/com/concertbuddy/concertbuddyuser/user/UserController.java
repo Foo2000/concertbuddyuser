@@ -77,7 +77,7 @@ public class UserController {
     }
 
     @PutMapping(path="{userId}/SpotifySync")
-    public void SpotifySync(@PathVariable("userId") UUID userId) {
-        userService.SpotifySync(userId);
+    public void SpotifySync(@PathVariable("userId") UUID userId, @RequestParam("SpotifyAccountToken") String SpotifyAccountToken) {
+        userService.SpotifySync(userId, SpotifyAccountToken);
     }
 }
