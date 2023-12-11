@@ -27,6 +27,6 @@ public class SongMutationResolver implements GraphQLMutationResolver {
 
     public Boolean deleteSong(UUID id) {
         songService.deleteSong(id);
-        return true; // Assuming deletion was successful, change as needed based on actual service implementation
+        return true; 
     }
 }

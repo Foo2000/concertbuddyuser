@@ -34,7 +34,6 @@ public class GraphQLConfiguration {
                                 env.getArgument("genre")
                         ))
                         .dataFetcher("deleteSong", env -> songMutationResolver.deleteSong(UUID.fromString(env.getArgument("id"))))
-                        // Add other mutation resolvers as needed
                 );
     }
 }
