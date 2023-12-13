@@ -8,6 +8,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "api/v1/songs")
+@CrossOrigin(origins = "*")
 public class SongController {
 
     private final SongService songService;
