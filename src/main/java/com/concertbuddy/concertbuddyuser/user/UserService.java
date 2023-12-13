@@ -49,12 +49,12 @@ public class UserService {
         return optionalUserById.get();
     }
 
-    public void addNewUser(User user) {
+    public UUID addNewUser(User user) {
         Optional<User> optionalUserByEmail = userRepository.findUserByEmail(user.getEmail());
         if (optionalUserByEmail.isPresent()) {
-            throw new IllegalStateException("This email is already taken by an existing user");
+            return optionalUserByEmail.get().getId();
         }
-        userRepository.save(user);
+        return userRepository.save(user).getId();
     }
 
     public void deleteUser(UUID userId) {

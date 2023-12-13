@@ -40,13 +40,13 @@ public class UserController {
     }
 
     @PostMapping
-    public void registerNewUser(@RequestBody User user) {
-        userService.addNewUser(user);
+    public UUID registerNewUser(@RequestBody User user) {
+        return userService.addNewUser(user);
     }
 
     @PutMapping
-    public void updateUser(@RequestBody User user) {
-        userService.addNewUser(user);
+    public UUID updateUser(@RequestBody User user) {
+        return userService.addNewUser(user);
     }
 
     @DeleteMapping(path="{userId}")
