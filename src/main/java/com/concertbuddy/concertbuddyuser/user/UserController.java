@@ -17,6 +17,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping(path = "api/v1/users")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private final UserService userService;
